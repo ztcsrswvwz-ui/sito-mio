@@ -548,6 +548,37 @@ Galloway roma · HTML
     .hero-logo-sticker{ animation:none; }
   }
   :focus-visible{ outline:3px solid var(--yellow); outline-offset:3px; }
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .menu-toggle {
+    display: block;
+    font-size: 28px;
+    background: transparent;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .links {
+    display: none;
+  }
+
+  .links.open {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: absolute;
+    top: 70px;
+    right: 16px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.2);
+  }
+}
 </style>
 </head>
 <body>
@@ -559,13 +590,15 @@ Galloway roma · HTML
     </div>
     <span>GALLOWAY</span>
   </div>
-  <nav class="links">
-    <a href="#chi-siamo">Chi siamo</a>
-    <a href="#galletto">Il Galletto</a>
-    <a href="#menu">Menu</a>
-    <a href="#birre">Birre</a>
-    <a href="#dove">Dove siamo</a>
-  </nav>
+ <button type="button" class="menu-toggle" id="menuToggle" aria-label="Apri menu">☰</button>
+
+<nav class="links" id="siteNav">
+  <a href="#chi-siamo">Chi siamo</a>
+  <a href="#galletto">Il Galletto</a>
+  <a href="#menu">Menu</a>
+  <a href="#birre">Birre</a>
+  <a href="#dove">Dove siamo</a>
+</nav>
   <a href="#" id="prenotaBtn" class="btn btn-primary nav-cta">Prenota</a>
 </header>
  
@@ -919,6 +952,20 @@ Galloway roma · HTML
       }
     }
   });
+const menuToggle = document.getElementById('menuToggle');
+const siteNav = document.getElementById('siteNav');
+
+if (menuToggle && siteNav) {
+  menuToggle.addEventListener('click', function () {
+    siteNav.classList.toggle('open');
+  });
+
+  siteNav.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      siteNav.classList.remove('open');
+    });
+  });
+}
 </script>
 </body>
 </html>
